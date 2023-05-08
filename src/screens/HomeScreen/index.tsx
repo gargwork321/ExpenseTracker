@@ -14,7 +14,7 @@ import Transaction from './components/transaction';
 import {transactions, earnings} from '../../constants/data';
 
 const HomeScreen = () => {
-  const [isExpenseSelected, setExpenseSelected] = useState<boolean>(false);
+  const [isExpenseSelected, setExpenseSelected] = useState<boolean>(true);
   const onTabPressed = () => {
     console.log('tab pressed');
     setExpenseSelected(!isExpenseSelected);
