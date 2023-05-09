@@ -9,12 +9,11 @@ import {
 } from 'react-native';
 import values from '../../constants/values';
 import colors from '../../constants/colors';
+import {Entry} from '../../realm';
 
 const TransactionDetailScreen = ({route, navigation}) => {
-  const transaction = route.params.transaction;
-  console.log('==>', transaction);
+  const transaction: Entry = route.params.transaction;
   const backToHome = () => {
-    console.log('back to home');
     navigation.goBack();
   };
 
@@ -53,9 +52,9 @@ const TransactionDetailScreen = ({route, navigation}) => {
           <View
             style={[
               styles.imageContainer,
-              {backgroundColor: transaction.backgroundColor, opacity: 0.5},
+              {backgroundColor: transaction.cat.bgColor, opacity: 0.5},
             ]}>
-            <Image style={styles.image} source={transaction.img} />
+            <Image style={styles.image} source={transaction.cat.image} />
           </View>
           <View
             style={{
@@ -102,10 +101,7 @@ const TransactionDetailScreen = ({route, navigation}) => {
             minHeight: 200,
             fontFamily: 'Trebuchet MS',
           }}>
-          Lorem ipsum dolor sit amet. Aut consequuntur voluptatem qui dolore
-          adipisci sit unde sapiente ut natus quis sit ipsum consequatur. Aut
-          nemo similique eos illum provident hic quis tempora 33 maxime
-          consequatur.
+          {transaction.notes}
         </Text>
         <View style={{flex: 1, padding: 20}}>
           <Text

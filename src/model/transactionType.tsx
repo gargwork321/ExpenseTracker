@@ -6,7 +6,7 @@ interface Transaction {
   date: string;
 }
 
-interface Category {
+interface Category extends Realm.Dictionary {
   id: number;
   name: string;
   image: string;

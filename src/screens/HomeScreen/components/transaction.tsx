@@ -2,9 +2,10 @@ import {StyleSheet, Text, View, Image} from 'react-native';
 import React from 'react';
 import values from '../../../constants/values';
 import CustomButton from '../../../components/customButton';
+import {Entry} from '../../../realm';
 
 type TransactionProps = {
-  transaction: Transaction;
+  transaction: Entry;
   onPress: () => {};
 };
 const Transaction = ({transaction, onPress}: TransactionProps) => {
@@ -14,12 +15,12 @@ const Transaction = ({transaction, onPress}: TransactionProps) => {
         <View
           style={[
             styles.imageContainer,
-            {backgroundColor: transaction.category.bgColor},
+            {backgroundColor: transaction.cat.bgColor},
           ]}>
-          <Image style={styles.image} source={transaction.category.image} />
+          <Image style={styles.image} source={transaction.cat.image} />
         </View>
         <View>
-          <Text style={values.pStyle}>{transaction.category.name}</Text>
+          <Text style={values.pStyle}>{transaction.cat.name}</Text>
           <Text style={values.h2Style}>{transaction.price}</Text>
         </View>
       </View>
