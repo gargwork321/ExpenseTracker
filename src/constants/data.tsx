@@ -1,91 +1,180 @@
-const categories = [
+import {Category, Transaction} from '../model/transactionType';
+
+const categories: Category[] = [
   {
     id: 1,
-    img: require('../../assets/images/call-center.png'),
-    heading: 'Service',
-    paragraph: 'Lorem Ipsum is simply dummy text',
-    backgroundColor: '#F6AFB0',
+    image: require('../../assets/images/call-center.png'),
+    name: 'Service',
+    bgColor: '#F6AFB0',
   },
   {
     id: 2,
-    img: require('../../assets/images/lightning.png'),
-    heading: 'Electricity',
-    paragraph: 'Lorem Ipsum is simply dummy text',
-    backgroundColor: '#8ECC81',
+    image: require('../../assets/images/lightning.png'),
+    name: 'Electricity',
+    bgColor: '#8ECC81',
   },
   {
     id: 3,
-    img: require('../../assets/images/piggy-bank.png'),
-    heading: 'Savings',
-    paragraph: 'Lorem Ipsum is simply dummy text',
-    backgroundColor: '#80CEEE',
+    image: require('../../assets/images/mortarboard.png'),
+    name: 'Education',
+    bgColor: '#F6AFB0',
+  },
+  {
+    id: 4,
+    image: require('../../assets/images/burger.png'),
+    name: 'Food',
+    bgColor: '#8ECC81',
+  },
+  {
+    id: 5,
+    image: require('../../assets/images/taxi.png'),
+    name: 'Transport',
+    bgColor: '#80CEEE',
+  },
+  {
+    id: 6,
+    image: require('../../assets/images/groccery.png'),
+    name: 'Groccery',
+    bgColor: '#A88FB0',
+  },
+  {
+    id: 7,
+    image: require('../../assets/images/shopping.png'),
+    name: 'Shopping',
+    bgColor: '#079FB0',
+  },
+
+  {
+    id: 8,
+    image: require('../../assets/images/wages.png'),
+    name: 'Salary',
+    bgColor: '#80CEEE',
+  },
+  {
+    id: 9,
+    image: require('../../assets/images/bank.png'),
+    name: 'Bank',
+    bgColor: '#A88FB0',
+  },
+  {
+    id: 10,
+    image: require('../../assets/images/money.png'),
+    name: 'Cash',
+    bgColor: '#F6AFB0',
   },
 ];
 
-const transactions = [
+const transactions: Transaction[] = [
   {
     id: 1,
-    img: require('../../assets/images/mortarboard.png'),
-    heading: 'Education',
     price: '₹ 149.00',
-    backgroundColor: '#F6AFB0',
+    notes: 'Lorem Ipsum is simply dummy text',
+    category: {
+      id: 7,
+      image: require('../../assets/images/shopping.png'),
+      name: 'Shopping',
+      bgColor: '#079FB0',
+    },
     date: '12 Dec, 2022',
   },
   {
     id: 2,
-    img: require('../../assets/images/burger.png'),
-    heading: 'Food',
     price: '₹ 350.00',
-    backgroundColor: '#8ECC81',
+    notes: 'Lorem Ipsum is simply dummy text',
     date: '26 Apr, 2023',
+    category: {
+      id: 6,
+      image: require('../../assets/images/groccery.png'),
+      name: 'Groccery',
+      bgColor: '#A88FB0',
+    },
   },
   {
     id: 3,
-    img: require('../../assets/images/taxi.png'),
-    heading: 'Transport',
     price: '₹ 275.00',
-    backgroundColor: '#80CEEE',
+    category: {
+      id: 4,
+      image: require('../../assets/images/burger.png'),
+      name: 'Food',
+      bgColor: '#8ECC81',
+    },
+    notes: 'Lorem Ipsum is simply dummy text',
     date: '17 Feb, 2023',
   },
   {
     id: 4,
-    img: require('../../assets/images/groccery.png'),
-    heading: 'Groccery',
     price: '₹ 1225.00',
-    backgroundColor: '#A88FB0',
+    category: {
+      id: 3,
+      image: require('../../assets/images/mortarboard.png'),
+      name: 'Education',
+      bgColor: '#F6AFB0',
+    },
+    notes: 'Lorem Ipsum is simply dummy text',
     date: '4 Jan, 2023',
   },
   {
     id: 5,
-    img: require('../../assets/images/shopping.png'),
-    heading: 'Shopping',
     price: '₹ 775.00',
-    backgroundColor: '#079FB0',
+    category: {
+      id: 5,
+      image: require('../../assets/images/taxi.png'),
+      name: 'Transport',
+      bgColor: '#80CEEE',
+    },
+    notes: 'Lorem Ipsum is simply dummy text',
     date: '22 Mar, 2023',
   },
 ];
 
-const earnings = [
+const earnings: Transaction[] = [
   {
     id: 1,
-    img: require('../../assets/images/money.png'),
-    heading: 'Cash',
     price: '₹ 4300.00',
-    backgroundColor: '#F6AFB0',
+    category: {
+      id: 10,
+      image: require('../../assets/images/money.png'),
+      name: 'Cash',
+      bgColor: '#F6AFB0',
+    },
+    notes: 'Lorem Ipsum is simply dummy text',
+    date: '22 Mar, 2023',
   },
   {
     id: 2,
-    img: require('../../assets/images/bank.png'),
-    heading: 'Bank',
     price: '₹ 3500.00',
-    backgroundColor: '#A88FB0',
+    category: {
+      id: 8,
+      image: require('../../assets/images/wages.png'),
+      name: 'Salary',
+      bgColor: '#80CEEE',
+    },
+    notes: 'Lorem Ipsum is simply dummy text',
+    date: '22 Mar, 2023',
   },
   {
     id: 3,
-    img: require('../../assets/images/wages.png'),
-    heading: 'Salary',
     price: '₹ 4500.00',
-    backgroundColor: '#80CEEE',
+    category: {
+      id: 10,
+      image: require('../../assets/images/money.png'),
+      name: 'Cash',
+      bgColor: '#F6AFB0',
+    },
+    notes: 'Lorem Ipsum is simply dummy text',
+    date: '22 Mar, 2023',
+  },
+  {
+    id: 4,
+    price: '₹ 4500.00',
+    category: {
+      id: 9,
+      image: require('../../assets/images/bank.png'),
+      name: 'Bank',
+      bgColor: '#A88FB0',
+    },
+    notes: 'Lorem Ipsum is simply dummy text',
+    date: '22 Mar, 2023',
   },
 ];
 

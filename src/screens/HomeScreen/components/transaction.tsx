@@ -4,7 +4,7 @@ import values from '../../../constants/values';
 import CustomButton from '../../../components/customButton';
 
 type TransactionProps = {
-  transaction: any;
+  transaction: Transaction;
   onPress: () => {};
 };
 const Transaction = ({transaction, onPress}: TransactionProps) => {
@@ -14,12 +14,12 @@ const Transaction = ({transaction, onPress}: TransactionProps) => {
         <View
           style={[
             styles.imageContainer,
-            {backgroundColor: transaction.backgroundColor},
+            {backgroundColor: transaction.category.bgColor},
           ]}>
-          <Image style={styles.image} source={transaction.img} />
+          <Image style={styles.image} source={transaction.category.image} />
         </View>
         <View>
-          <Text style={values.pStyle}>{transaction.heading}</Text>
+          <Text style={values.pStyle}>{transaction.category.name}</Text>
           <Text style={values.h2Style}>{transaction.price}</Text>
         </View>
       </View>
