@@ -26,6 +26,9 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import AddExpenseScreen from './src/screens/AddExpense';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import TransactionDetailScreen from './src/screens/TransactionDetail';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -56,12 +59,29 @@ function Section({children, title}: SectionProps): JSX.Element {
     </View>
   );
 }
+const Stack = createNativeStackNavigator();
 
 function App(): JSX.Element {
   return (
-    <>
-      <HomeScreen />
-    </>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="AddExpense"
+          component={AddExpenseScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="TransactionDetail"
+          component={TransactionDetailScreen}
+          options={{headerShown: false}}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 

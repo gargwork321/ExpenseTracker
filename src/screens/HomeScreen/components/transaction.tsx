@@ -30,7 +30,7 @@ const Transaction = ({transaction, onPress}: TransactionProps) => {
         textSize={12}
         text="Details"
         backgroundColor={'#FD9062'}
-        onPress={() => onPress(transaction.heading)}
+        onPress={() => onPress(transaction)}
       />
     </View>
   );

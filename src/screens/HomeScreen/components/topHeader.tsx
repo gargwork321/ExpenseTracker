@@ -2,12 +2,14 @@ import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import colors from '../../../constants/colors';
 import values from '../../../constants/values';
+import {useNavigation} from '@react-navigation/native';
 
-const addNew = () => {
-  console.log('add added');
-};
+const TopHeader: React.FC = () => {
+  const navigation = useNavigation();
+  const addNew = () => {
+    navigation.navigate('AddExpense');
+  };
 
-const TopHeader = () => {
   return (
     <View style={styles.container}>
       <Image
@@ -16,7 +18,7 @@ const TopHeader = () => {
       />
       <View style={{marginLeft: 10}}>
         <Text style={values.pWhiteStyle}>Welcome!</Text>
-        <Text style={[values.h2Style, {color: colors.white}]}>Vivek Garg</Text>
+        <Text style={styles.whiteColor}>Vivek Garg</Text>
       </View>
       <TouchableOpacity style={styles.addButton} onPress={addNew}>
         <Image
@@ -49,6 +51,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 0,
   },
+  whiteColor: {color: colors.white, ...values.h2Style},
 });
 
 export default TopHeader;

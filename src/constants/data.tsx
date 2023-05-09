@@ -29,6 +29,7 @@ const transactions = [
     heading: 'Education',
     price: '₹ 149.00',
     backgroundColor: '#F6AFB0',
+    date: '12 Dec, 2022',
   },
   {
     id: 2,
@@ -36,6 +37,7 @@ const transactions = [
     heading: 'Food',
     price: '₹ 350.00',
     backgroundColor: '#8ECC81',
+    date: '26 Apr, 2023',
   },
   {
     id: 3,
@@ -43,6 +45,7 @@ const transactions = [
     heading: 'Transport',
     price: '₹ 275.00',
     backgroundColor: '#80CEEE',
+    date: '17 Feb, 2023',
   },
   {
     id: 4,
@@ -50,13 +53,15 @@ const transactions = [
     heading: 'Groccery',
     price: '₹ 1225.00',
     backgroundColor: '#A88FB0',
+    date: '4 Jan, 2023',
   },
   {
-    id: 4,
+    id: 5,
     img: require('../../assets/images/shopping.png'),
     heading: 'Shopping',
     price: '₹ 775.00',
     backgroundColor: '#079FB0',
+    date: '22 Mar, 2023',
   },
 ];
 
