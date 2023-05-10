@@ -52,6 +52,9 @@ brew install node
 
 # Run
 
+- npx install
+
 - To run on android (npx react-native run-android)
 
+- cd ios && pod install
 - To run on ios (npx react-native run-ios)
