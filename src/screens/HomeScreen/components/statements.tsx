@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import colors from '../../../constants/colors';
-import {earnings} from '../../../constants/data';
 import Transaction from './transaction';
 import {useNavigation} from '@react-navigation/native';
 import {Entry, entryContext} from '../../../realm';
@@ -11,6 +10,9 @@ const Statements = () => {
   const navigation = useNavigation();
   const {useQuery} = entryContext;
   const transactions = useQuery(Entry);
+  const showingTransaction = transactions.filter(
+    trans => trans.isExpense === isExpenseSelected,
+  );
   const onTabPressed = () => {
     console.log('tab pressed');
     setExpenseSelected(!isExpenseSelected);
@@ -62,7 +64,7 @@ const Statements = () => {
         </View>
         <FlatList
           style={{padding: 20}}
-          data={isExpenseSelected ? transactions : earnings}
+          data={showingTransaction}
           showsVerticalScrollIndicator={false}
           keyExtractor={item => item.id}
           renderItem={({item}) => (

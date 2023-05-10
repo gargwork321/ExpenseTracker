@@ -9,6 +9,7 @@ export class Entry extends Realm.Object<Entry> {
   notes!: string;
   date!: string;
   cat!: Category;
+  isExpense!: boolean;
 
   static schema: Realm.ObjectSchema = {
     name: 'Entry',
@@ -17,7 +18,8 @@ export class Entry extends Realm.Object<Entry> {
       price: 'string',
       notes:'string',
       date: 'string',
-      cat: '{}'
+      cat: '{}',
+      isExpense:{type:'bool', default:'true'},
     },
   };
 }

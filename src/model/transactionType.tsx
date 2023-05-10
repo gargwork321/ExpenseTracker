@@ -11,6 +11,7 @@ interface Category extends Realm.Dictionary {
   name: string;
   image: string;
   bgColor: string;
+  isExpense: boolean;
 }
 
 export type {Transaction, Category};

@@ -6,42 +6,49 @@ const categories: Category[] = [
     image: require('../../assets/images/call-center.png'),
     name: 'Service',
     bgColor: '#F6AFB0',
+    isExpense: true,
   },
   {
     id: 2,
     image: require('../../assets/images/lightning.png'),
     name: 'Electricity',
     bgColor: '#8ECC81',
+    isExpense: true,
   },
   {
     id: 3,
     image: require('../../assets/images/mortarboard.png'),
     name: 'Education',
     bgColor: '#F6AFB0',
+    isExpense: true,
   },
   {
     id: 4,
     image: require('../../assets/images/burger.png'),
     name: 'Food',
     bgColor: '#8ECC81',
+    isExpense: true,
   },
   {
     id: 5,
     image: require('../../assets/images/taxi.png'),
     name: 'Transport',
     bgColor: '#80CEEE',
+    isExpense: true,
   },
   {
     id: 6,
     image: require('../../assets/images/groccery.png'),
     name: 'Groccery',
     bgColor: '#A88FB0',
+    isExpense: true,
   },
   {
     id: 7,
     image: require('../../assets/images/shopping.png'),
     name: 'Shopping',
     bgColor: '#079FB0',
+    isExpense: true,
   },
 
   {
@@ -49,18 +56,21 @@ const categories: Category[] = [
     image: require('../../assets/images/wages.png'),
     name: 'Salary',
     bgColor: '#80CEEE',
+    isExpense: false,
   },
   {
     id: 9,
     image: require('../../assets/images/bank.png'),
     name: 'Bank',
     bgColor: '#A88FB0',
+    isExpense: false,
   },
   {
     id: 10,
     image: require('../../assets/images/money.png'),
     name: 'Cash',
     bgColor: '#F6AFB0',
+    isExpense: false,
   },
 ];
 

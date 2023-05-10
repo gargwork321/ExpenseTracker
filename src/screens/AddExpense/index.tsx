@@ -14,12 +14,21 @@ import colors from '../../constants/colors';
 import {entryContext} from '../../realm';
 import {categories} from '../../constants/data';
 import {Category} from '../../model/transactionType';
+import {Switch} from 'react-native';
 
 const AddExpenseScreen = ({navigation}) => {
   const [amount, setAmount] = useState('');
   const [notes, setNotes] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<Category>({});
+  const [isEarning, setIsEarning] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+  const defautCat: Category = {
+    image: require('../../../assets/images/category.png'),
+    bgColor: '#F6AFB0',
+  };
+  const [selectedCategory, setSelectedCategory] = useState<Category>(defautCat);
+  const showingCategory = categories.filter(
+    cat => cat.isExpense === !isEarning,
+  );
   const {useRealm} = entryContext;
   const realm = useRealm();
   const handleOptionSelect = cat => {
@@ -30,6 +39,11 @@ const AddExpenseScreen = ({navigation}) => {
     navigation.goBack();
   };
 
+  const onSwitch = value => {
+    setIsEarning(value);
+    setSelectedCategory(defautCat);
+  };
+
   const addEntry = useCallback(() => {
     realm.write(() => {
       realm.create('Entry', {
@@ -38,10 +52,11 @@ const AddExpenseScreen = ({navigation}) => {
         notes: notes,
         date: new Date().toLocaleDateString(),
         cat: selectedCategory,
+        isExpense: !isEarning,
       });
     });
     backToHome();
-  }, [amount, notes]);
+  }, [amount, notes, isEarning]);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.whiteContainer}>
@@ -53,7 +68,7 @@ const AddExpenseScreen = ({navigation}) => {
               source={require('../../../assets/images/close.png')}
             />
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>Add expense</Text>
+          <Text style={styles.headerTitle}>Add Transaction</Text>
         </View>
         <View style={styles.rows}>
           <View style={styles.imageContainer}>
@@ -63,7 +78,7 @@ const AddExpenseScreen = ({navigation}) => {
             />
           </View>
           <TextInput
-            placeholder="amount spent"
+            placeholder="amount"
             keyboardType="numeric"
             style={styles.textInput}
             onChangeText={setAmount}
@@ -89,7 +104,7 @@ const AddExpenseScreen = ({navigation}) => {
         </TouchableOpacity>
         <Modal visible={showDropdown} animationType="slide">
           <View style={styles.modalContainer}>
-            {categories.map(catg => (
+            {showingCategory.map(catg => (
               <TouchableOpacity
                 key={catg}
                 onPress={() => handleOptionSelect(catg)}
@@ -113,6 +128,11 @@ const AddExpenseScreen = ({navigation}) => {
             onChangeText={setNotes}
             value={notes}
           />
+        </View>
+        <View style={styles.radioContainer}>
+          <Text style={styles.radioText}>Expense</Text>
+          <Switch value={isEarning} onValueChange={value => onSwitch(value)} />
+          <Text style={styles.radioText}>Earning</Text>
         </View>
         <TouchableOpacity style={styles.addBtnContiner} onPress={addEntry}>
           <Text style={styles.addButtonText}>Add</Text>
@@ -213,6 +233,18 @@ const styles = StyleSheet.create({
   },
   optionText: {
     fontSize: 16,
+  },
+  radioText: {
+    fontSize: 25,
+    fontWeight: '600',
+    fontFamily: 'Trebuchet MS',
+  },
+  radioContainer: {
+    flexDirection: 'row',
+    padding: 20,
+    marginLeft: 20,
+    justifyContent: 'space-between',
+    width: '80%',
   },
 });
 
