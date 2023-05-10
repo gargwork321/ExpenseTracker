@@ -15,9 +15,9 @@ const TopHeader: React.FC = () => {
     <View style={styles.container}>
       <Image
         style={styles.image}
-        source={{uri: 'https://i.pravatar.cc/250?u=mail@ashallendesign.co.uk'}}
+        source={require('../../../../assets/images/user.png')}
       />
-      <View style={{marginLeft: 10}}>
+      <View style={styles.leftMargin}>
         <Text style={values.pWhiteStyle}>Welcome!</Text>
         <Text style={styles.whiteColor}>Vivek Garg</Text>
       </View>
@@ -44,7 +44,8 @@ const styles = StyleSheet.create({
     height: 45,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: 'white',
+    borderColor: colors.white,
+    backgroundColor: colors.MAGENTA_CE90EC,
   },
   addButton: {
     height: 40,
@@ -52,7 +53,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 0,
   },
-  whiteColor: {color: colors.white, ...values.h2Style},
+  leftMargin: {
+    marginLeft: 10,
+  },
+  whiteColor: {
+    color: colors.white,
+    ...values.h2Style,
+  },
 });
 
 export default TopHeader;

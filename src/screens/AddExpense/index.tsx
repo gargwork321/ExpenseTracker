@@ -16,6 +16,7 @@ import {categories} from '../../constants/data';
 import {Category} from '../../model/transactionType';
 import {Switch} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import Font from '../../constants/fonts';
 
 const AddExpenseScreen = ({route}) => {
   const {useRealm, useObject} = entryContext;
@@ -28,7 +29,7 @@ const AddExpenseScreen = ({route}) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const defautCat: Category = {
     image: require('../../../assets/images/category.png'),
-    bgColor: '#F6AFB0',
+    bgColor: colors.RED_F6AFB0,
   };
   const [selectedCategory, setSelectedCategory] = useState<Category>(defautCat);
   const showingCategory = categories.filter(
@@ -196,14 +197,14 @@ const styles = StyleSheet.create({
     marginLeft: 30,
     fontSize: 25,
     fontWeight: '700',
-    fontFamily: 'Trebuchet MS',
+    fontFamily: Font.TREBUCHET_REGULAR,
   },
   rows: {flexDirection: 'row', padding: 30},
   whiteContainer: {
     height: 1000,
     width: '100%',
     marginTop: 75,
-    backgroundColor: '#fff',
+    backgroundColor: colors.white,
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
   },
@@ -224,14 +225,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#3dccc4',
+    backgroundColor: colors.GREEN_3DCCC4,
   },
   textInput: {
     fontSize: 30,
     marginLeft: 10,
     borderBottomWidth: 2,
     padding: 10,
-    fontFamily: 'Trebuchet MS',
+    fontFamily: Font.TREBUCHET_REGULAR,
   },
   addBtnContiner: {
     width: 150,
@@ -247,7 +248,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     alignSelf: 'center',
     fontWeight: '600',
-    fontFamily: 'Trebuchet MS',
+    fontFamily: Font.TREBUCHET_REGULAR,
   },
   modalContainer: {
     backgroundColor: '#fff',
@@ -271,7 +272,7 @@ const styles = StyleSheet.create({
   radioText: {
     fontSize: 25,
     fontWeight: '600',
-    fontFamily: 'Trebuchet MS',
+    fontFamily: Font.TREBUCHET_REGULAR,
   },
   radioContainer: {
     flexDirection: 'row',

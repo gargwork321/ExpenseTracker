@@ -15,7 +15,7 @@ const CustomButton = ({
 }: Props) => {
   return (
     <TouchableOpacity onPress={onPress}>
-      <View style={[styles.imageContainer(size), {backgroundColor: bgColor}]}>
+      <View style={styles.imageContainer(size, bgColor)}>
         <Image style={styles.image(size)} source={image} />
       </View>
     </TouchableOpacity>
@@ -23,13 +23,14 @@ const CustomButton = ({
 };
 
 const styles = StyleSheet.create({
-  imageContainer: (size: number) => ({
+  imageContainer: (size: number, color: string) => ({
     height: size,
     width: size,
     borderRadius: size / 10,
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: 5,
+    backgroundColor: color,
   }),
   image: (size: number) => ({
     width: (size * 2) / 3,

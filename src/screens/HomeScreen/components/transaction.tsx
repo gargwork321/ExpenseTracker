@@ -5,6 +5,7 @@ import CustomButton from '../../../components/customButton';
 import {Entry, entryContext} from '../../../realm';
 import {useNavigation} from '@react-navigation/native';
 import Screens from '../../../constants/screens';
+import colors from '../../../constants/colors';
 
 type TransactionProps = {
   transaction: Entry;
@@ -16,10 +17,12 @@ const Transaction = ({
   onPress,
   isFromDashboard = false,
 }: TransactionProps) => {
+  const navigation = useNavigation();
+  //Icons
   const eyeIcon = require('../../../../assets/images/eye.png');
   const updateIcon = require('../../../../assets/images/update.png');
   const deleteIcon = require('../../../../assets/images/delete.png');
-  const navigation = useNavigation();
+  //Realm
   const {useRealm} = entryContext;
   const realm = useRealm();
   const deleteTransaction = () => {
@@ -54,7 +57,7 @@ const Transaction = ({
         }}>
         <CustomButton
           size={30}
-          bgColor={'#E7941B'}
+          bgColor={colors.ORANGE_E7941B}
           image={eyeIcon}
           onPress={() => onPress(transaction)}
         />
@@ -63,13 +66,13 @@ const Transaction = ({
           <>
             <CustomButton
               size={30}
-              bgColor={'#9DD241'}
+              bgColor={colors.GREEN_9DD241}
               onPress={updateTransaction}
               image={updateIcon}
             />
             <CustomButton
               size={30}
-              bgColor={'#DC4F33'}
+              bgColor={colors.RED_DC4F33}
               onPress={deleteTransaction}
               image={deleteIcon}
             />

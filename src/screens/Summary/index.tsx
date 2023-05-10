@@ -14,52 +14,37 @@ import {Entry, entryContext} from '../../realm';
 import Transaction from '../HomeScreen/components/transaction';
 import {useNavigation} from '@react-navigation/native';
 import Screens from '../../constants/screens';
+import Font from '../../constants/fonts';
 
 const Summary: React.FC = () => {
   const navigation = useNavigation();
+  //Realm
   const {useQuery} = entryContext;
   const transactions = useQuery(Entry);
+  //Functions
   const backToHome = () => {
     navigation.goBack();
   };
   const showDetail = item => {
-    console.warn(`Clicked ${item.heading}`);
     navigation.navigate(Screens.TRANSACTION_DETAIL, {transaction: item});
   };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.whiteContainer}>
-        <View
-          style={{
-            flexDirection: 'row',
-            padding: 20,
-            paddingLeft: 10,
-            alignItems: 'center',
-          }}>
+        <View style={styles.headerContainer}>
           <TouchableOpacity style={styles.backButton} onPress={backToHome}>
             <Image
               resizeMode="contain"
-              style={{
-                width: 30,
-                height: 30,
-              }}
+              style={styles.imageSize(30)}
               source={require('../../../assets/images/back.png')}
             />
           </TouchableOpacity>
-          <Text
-            style={{
-              alignSelf: 'center',
-              marginLeft: 20,
-              fontSize: 25,
-              fontWeight: '700',
-              fontFamily: 'Trebuchet MS',
-            }}>
-            Summary
-          </Text>
+          <Text style={styles.headerTitle}>Summary</Text>
         </View>
         <View>
           <FlatList
-            style={{padding: 20}}
+            style={styles.padding}
             data={transactions}
             showsVerticalScrollIndicator={false}
             keyExtractor={item => item.id}
@@ -86,9 +71,15 @@ const styles = StyleSheet.create({
     height: 1000,
     width: '100%',
     marginTop: 75,
-    backgroundColor: '#fff',
+    backgroundColor: colors.white,
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    padding: 20,
+    paddingLeft: 10,
+    alignItems: 'center',
   },
   backButton: {
     width: 40,
@@ -97,16 +88,19 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     padding: 5,
   },
-  image: {
-    width: 100,
-    height: 100,
+  headerTitle: {
+    alignSelf: 'center',
+    marginLeft: 20,
+    fontSize: 25,
+    fontWeight: '700',
+    fontFamily: Font.TREBUCHET_REGULAR,
   },
-  imageContainer: {
-    height: 175,
-    width: 175,
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
+  imageSize: (size: number) => ({
+    width: size,
+    height: size,
+  }),
+  padding: {
+    padding: 20,
   },
 });
 export default Summary;

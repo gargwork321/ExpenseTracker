@@ -10,9 +10,12 @@ import {
 import values from '../../constants/values';
 import colors from '../../constants/colors';
 import {Entry} from '../../realm';
+import Font from '../../constants/fonts';
+import {useNavigation} from '@react-navigation/native';
 
-const TransactionDetailScreen = ({route, navigation}) => {
+const TransactionDetailScreen = ({route}) => {
   const transaction: Entry = route.params.transaction;
+  const navigation = useNavigation();
   const backToHome = () => {
     navigation.goBack();
   };
@@ -20,99 +23,36 @@ const TransactionDetailScreen = ({route, navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.whiteContainer}>
-        <View
-          style={{
-            flexDirection: 'row',
-            padding: 20,
-            paddingLeft: 10,
-            alignItems: 'center',
-          }}>
+        <View style={styles.headerContainer}>
           <TouchableOpacity style={styles.backButton} onPress={backToHome}>
             <Image
               resizeMode="contain"
-              style={{
-                width: 30,
-                height: 30,
-              }}
+              style={styles.imageSize(30)}
               source={require('../../../assets/images/back.png')}
             />
           </TouchableOpacity>
-          <Text
-            style={{
-              alignSelf: 'center',
-              marginLeft: 20,
-              fontSize: 25,
-              fontWeight: '700',
-              fontFamily: 'Trebuchet MS',
-            }}>
-            Transaction Detail
-          </Text>
+          <Text style={styles.headerText}>Transaction Detail</Text>
         </View>
         <View style={{flexDirection: 'row', padding: 20}}>
           <View
             style={[
               styles.imageContainer,
-              {backgroundColor: transaction.cat.bgColor, opacity: 0.5},
+              {backgroundColor: transaction.cat.bgColor},
             ]}>
-            <Image style={styles.image} source={transaction.cat.image} />
+            <Image
+              style={styles.imageSize(100)}
+              source={transaction.cat.image}
+            />
           </View>
-          <View
-            style={{
-              marginLeft: 20,
-              alignSelf: 'flex-end',
-              flex: 1,
-            }}>
-            <Text
-              style={{
-                fontSize: 30,
-                fontWeight: '600',
-                alignSelf: 'flex-end',
-                fontFamily: 'Trebuchet MS',
-                backgroundColor: '#000',
-                color: '#fff',
-                paddingHorizontal: 10,
-              }}>
-              Amount
-            </Text>
-            <Text
-              style={{
-                fontSize: 30,
-                fontWeight: '600',
-                alignSelf: 'flex-end',
-                fontFamily: 'Trebuchet MS',
-              }}>
-              {transaction.price}
-            </Text>
+          <View style={styles.detailsBox}>
+            <Text style={styles.amountTitle}>Amount</Text>
+            <Text style={styles.price}>{transaction.price}</Text>
           </View>
         </View>
-        <Text
-          style={{
-            fontSize: 30,
-            fontWeight: '600',
-            padding: 20,
-            fontFamily: 'Trebuchet MS',
-          }}>
-          Notes
-        </Text>
-        <Text
-          style={{
-            fontSize: 20,
-            paddingHorizontal: 20,
-            minHeight: 200,
-            fontFamily: 'Trebuchet MS',
-          }}>
-          {transaction.notes}
-        </Text>
-        <View style={{flex: 1, padding: 20}}>
-          <Text
-            style={{
-              fontSize: 20,
-              alignSelf: 'flex-end',
-              fontWeight: '500',
-              fontFamily: 'Trebuchet MS',
-            }}>
-            {transaction.date}
-          </Text>
+        <Text style={styles.notesTitle}>Notes</Text>
+        <Text style={styles.notes}>{transaction.notes}</Text>
+        <View style={styles.dateBox}>
+          <Text style={styles.date}>{transaction.date}</Text>
         </View>
       </View>
     </SafeAreaView>
@@ -133,6 +73,51 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
   },
+  headerContainer: {
+    flexDirection: 'row',
+    padding: 20,
+    paddingLeft: 10,
+    alignItems: 'center',
+  },
+  headerText: {
+    alignSelf: 'center',
+    marginLeft: 20,
+    fontSize: 25,
+    fontWeight: '700',
+    fontFamily: Font.TREBUCHET_REGULAR,
+  },
+  detailsBox: {
+    marginLeft: 20,
+    alignSelf: 'flex-end',
+    flex: 1,
+  },
+  amountTitle: {
+    fontSize: 30,
+    fontWeight: '600',
+    alignSelf: 'flex-end',
+    fontFamily: Font.TREBUCHET_REGULAR,
+    backgroundColor: colors.balck,
+    color: colors.white,
+    paddingHorizontal: 10,
+  },
+  price: {
+    fontSize: 30,
+    fontWeight: '600',
+    alignSelf: 'flex-end',
+    fontFamily: Font.TREBUCHET_REGULAR,
+  },
+  notesTitle: {
+    fontSize: 30,
+    fontWeight: '600',
+    padding: 20,
+    fontFamily: Font.TREBUCHET_REGULAR,
+  },
+  notes: {
+    fontSize: 20,
+    paddingHorizontal: 20,
+    minHeight: 200,
+    fontFamily: Font.TREBUCHET_REGULAR,
+  },
   backButton: {
     width: 40,
     height: 40,
@@ -140,16 +125,27 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     padding: 5,
   },
-  image: {
-    width: 100,
-    height: 100,
+  dateBox: {
+    flex: 1,
+    padding: 20,
   },
+  date: {
+    fontSize: 20,
+    alignSelf: 'flex-end',
+    fontWeight: '500',
+    fontFamily: Font.TREBUCHET_REGULAR,
+  },
+  imageSize: (size: number) => ({
+    width: size,
+    height: size,
+  }),
   imageContainer: {
     height: 175,
     width: 175,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
+    opacity: 0.5,
   },
 });
 export default TransactionDetailScreen;

@@ -20,11 +20,7 @@ const Category = ({category, onPress}) => {
         <Text style={[values.h2Style, {marginTop: 10}]}>
           {category.heading}
         </Text>
-        <Text
-          style={[
-            values.pWhiteStyle,
-            {textAlign: 'center', fontWeight: 'bold', marginTop: 5},
-          ]}>
+        <Text style={[values.pWhiteStyle, styles.para]}>
           {category.paragraph}
         </Text>
       </View>
@@ -44,6 +40,11 @@ const styles = StyleSheet.create({
   image: {
     width: 45,
     height: 45,
+  },
+  para: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    marginTop: 5,
   },
 });
 
