@@ -2,13 +2,36 @@ import {StyleSheet, Text, View, Image} from 'react-native';
 import React from 'react';
 import values from '../../../constants/values';
 import CustomButton from '../../../components/customButton';
-import {Entry} from '../../../realm';
+import {Entry, entryContext} from '../../../realm';
+import {useNavigation} from '@react-navigation/native';
 
 type TransactionProps = {
   transaction: Entry;
   onPress: () => {};
+  isFromDashboard: boolean;
 };
-const Transaction = ({transaction, onPress}: TransactionProps) => {
+const Transaction = ({
+  transaction,
+  onPress,
+  isFromDashboard = false,
+}: TransactionProps) => {
+  const eyeIcon = require('../../../../assets/images/eye.png');
+  const updateIcon = require('../../../../assets/images/update.png');
+  const deleteIcon = require('../../../../assets/images/delete.png');
+  const navigation = useNavigation();
+  const {useRealm} = entryContext;
+  const realm = useRealm();
+  const deleteTransaction = () => {
+    realm.write(() => {
+      realm.delete(transaction);
+    });
+  };
+  const updateTransaction = () => {
+    navigation.navigate('AddExpense', {
+      transaction: transaction,
+      isUpdate: true,
+    });
+  };
   return (
     <View style={styles.container}>
       <View style={styles.leftSection}>
@@ -24,15 +47,36 @@ const Transaction = ({transaction, onPress}: TransactionProps) => {
           <Text style={values.h2Style}>{transaction.price}</Text>
         </View>
       </View>
-      <CustomButton
-        width={52}
-        height={25}
-        radius={5}
-        textSize={12}
-        text="Details"
-        backgroundColor={'#FD9062'}
-        onPress={() => onPress(transaction)}
-      />
+      <View
+        style={{
+          flexDirection: 'row',
+        }}>
+        <CustomButton
+          size={30}
+          bgColor={'#E7941B'}
+          image={eyeIcon}
+          onPress={() => onPress(transaction)}
+        />
+
+        {!isFromDashboard ? (
+          <>
+            <CustomButton
+              size={30}
+              bgColor={'#9DD241'}
+              onPress={updateTransaction}
+              image={updateIcon}
+            />
+            <CustomButton
+              size={30}
+              bgColor={'#DC4F33'}
+              onPress={deleteTransaction}
+              image={deleteIcon}
+            />
+          </>
+        ) : (
+          <></>
+        )}
+      </View>
     </View>
   );
 };

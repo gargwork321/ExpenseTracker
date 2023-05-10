@@ -21,6 +21,7 @@ export class Entry extends Realm.Object<Entry> {
       cat: '{}',
       isExpense:{type:'bool', default:'true'},
     },
+    primaryKey: '_id',
   };
 }
 

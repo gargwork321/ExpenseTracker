@@ -1,27 +1,40 @@
-import { StyleSheet, Text, View,  TouchableOpacity} from 'react-native'
-import React from 'react'
+import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
+import React from 'react';
 
-const CustomButton = ({width = 100, height = 30, radius = 0, textColor = 'white', textSize= 18, text = 'Button', backgroundColor = '#CBDFE4', onPress}) => {
+type Props = {
+  size: number;
+  bgColor: string;
+  image: string;
+  onPress: any;
+};
+const CustomButton = ({
+  size = 30,
+  bgColor = '#CBDFE4',
+  image,
+  onPress,
+}: Props) => {
   return (
     <TouchableOpacity onPress={onPress}>
-      <View style = {[styles.container,
-         {
-             width: width,
-             height: height,
-             backgroundColor: backgroundColor,
-             borderRadius: radius,
-         }]}>
-             <Text style= {{color: textColor, fontSize: textSize}}>{text}</Text>
+      <View style={[styles.imageContainer(size), {backgroundColor: bgColor}]}>
+        <Image style={styles.image(size)} source={image} />
       </View>
     </TouchableOpacity>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
-    container: {
-        alignItems: 'center',
-        justifyContent: 'center',
-    }
-})
+  imageContainer: (size: number) => ({
+    height: size,
+    width: size,
+    borderRadius: size / 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 5,
+  }),
+  image: (size: number) => ({
+    width: (size * 2) / 3,
+    height: (size * 2) / 3,
+  }),
+});
 
-export default CustomButton
+export default CustomButton;

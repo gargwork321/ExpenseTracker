@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   SafeAreaView,
@@ -11,13 +11,18 @@ import {
 } from 'react-native';
 import values from '../../constants/values';
 import colors from '../../constants/colors';
-import {entryContext} from '../../realm';
+import {Entry, entryContext} from '../../realm';
 import {categories} from '../../constants/data';
 import {Category} from '../../model/transactionType';
 import {Switch} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
-const AddExpenseScreen = ({navigation}) => {
-  const [amount, setAmount] = useState('');
+const AddExpenseScreen = ({route}) => {
+  const {useRealm, useObject} = entryContext;
+  const transaction: Entry = route?.params?.transaction;
+  const isUpdate: boolean = route?.params?.isUpdate;
+  const navigation = useNavigation();
+  const [amount, setAmount] = useState(isUpdate ? transaction.price : '');
   const [notes, setNotes] = useState('');
   const [isEarning, setIsEarning] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -29,7 +34,6 @@ const AddExpenseScreen = ({navigation}) => {
   const showingCategory = categories.filter(
     cat => cat.isExpense === !isEarning,
   );
-  const {useRealm} = entryContext;
   const realm = useRealm();
   const handleOptionSelect = cat => {
     setSelectedCategory(cat);
@@ -44,19 +48,30 @@ const AddExpenseScreen = ({navigation}) => {
     setSelectedCategory(defautCat);
   };
 
-  const addEntry = useCallback(() => {
-    realm.write(() => {
-      realm.create('Entry', {
-        _id: new Realm.BSON.ObjectID(),
-        price: amount,
-        notes: notes,
-        date: new Date().toLocaleDateString(),
-        cat: selectedCategory,
-        isExpense: !isEarning,
+  const ent = transaction ? useObject(Entry, transaction._id) : undefined;
+  const updateEntry = () => {
+    if (ent) {
+      realm.write(() => {
+        ent.price = amount;
       });
-    });
+    }
+  };
+
+  const addEntry = () => {
+    isUpdate
+      ? updateEntry()
+      : realm.write(() => {
+          realm.create('Entry', {
+            _id: new Realm.BSON.ObjectID(),
+            price: amount,
+            notes: notes,
+            date: new Date().toLocaleDateString(),
+            cat: selectedCategory,
+            isExpense: !isEarning,
+          });
+        });
     backToHome();
-  }, [amount, notes, isEarning]);
+  };
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.whiteContainer}>
@@ -68,7 +83,11 @@ const AddExpenseScreen = ({navigation}) => {
               source={require('../../../assets/images/close.png')}
             />
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>Add Transaction</Text>
+          {isUpdate ? (
+            <Text style={styles.headerTitle}>Update Transaction</Text>
+          ) : (
+            <Text style={styles.headerTitle}>Add Transaction</Text>
+          )}
         </View>
         <View style={styles.rows}>
           <View style={styles.imageContainer}>
@@ -86,19 +105,27 @@ const AddExpenseScreen = ({navigation}) => {
           />
         </View>
         <TouchableOpacity
+          disabled={isUpdate}
           onPress={() => setShowDropdown(true)}
           style={styles.rows}>
           <View
             style={[
               styles.imageContainer,
-              {backgroundColor: selectedCategory.bgColor},
+              {
+                backgroundColor: isUpdate
+                  ? transaction.cat.bgColor
+                  : selectedCategory.bgColor,
+              },
             ]}>
-            <Image style={styles.image} source={selectedCategory.image} />
+            <Image
+              style={styles.image}
+              source={isUpdate ? transaction.cat.image : selectedCategory.image}
+            />
           </View>
           <TextInput
             placeholder="category"
             style={styles.textInput}
-            value={selectedCategory.name}
+            value={isUpdate ? transaction.cat.name : selectedCategory.name}
             editable={false}
           />
         </TouchableOpacity>
@@ -123,19 +150,26 @@ const AddExpenseScreen = ({navigation}) => {
             />
           </View>
           <TextInput
+            editable={!isUpdate}
             placeholder="notes"
             style={styles.textInput}
             onChangeText={setNotes}
-            value={notes}
+            value={isUpdate ? transaction.notes : notes}
           />
         </View>
         <View style={styles.radioContainer}>
           <Text style={styles.radioText}>Expense</Text>
-          <Switch value={isEarning} onValueChange={value => onSwitch(value)} />
+          <Switch
+            value={isUpdate ? !transaction.isExpense : isEarning}
+            onValueChange={value => onSwitch(value)}
+            disabled={isUpdate}
+          />
           <Text style={styles.radioText}>Earning</Text>
         </View>
         <TouchableOpacity style={styles.addBtnContiner} onPress={addEntry}>
-          <Text style={styles.addButtonText}>Add</Text>
+          <Text style={styles.addButtonText}>
+            {isUpdate ? 'Update' : 'Add'}
+          </Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

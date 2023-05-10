@@ -71,6 +71,7 @@ const Statements = () => {
             <Transaction
               transaction={item}
               onPress={item => showDetail(item)}
+              isFromDashboard={true}
             />
           )}
         />

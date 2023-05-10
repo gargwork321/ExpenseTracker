@@ -12,6 +12,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import TransactionDetailScreen from './src/screens/TransactionDetail';
 import {entryContext} from './src/realm';
+import Summary from './src/screens/Summary';
 const {RealmProvider} = entryContext;
 
 const Stack = createNativeStackNavigator();
@@ -33,6 +34,11 @@ function App(): JSX.Element {
         <Stack.Screen
           name="TransactionDetail"
           component={TransactionDetailScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Summary"
+          component={Summary}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
