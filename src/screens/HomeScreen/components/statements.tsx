@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import colors from '../../../constants/colors';
 import Transaction from './transaction';
 import {useNavigation} from '@react-navigation/native';
 import {Entry, entryContext} from '../../../realm';
+import Font from '../../../constants/fonts';
 
 const Statements = () => {
   const [isExpenseSelected, setExpenseSelected] = useState<boolean>(true);
@@ -14,14 +15,12 @@ const Statements = () => {
     trans => trans.isExpense === isExpenseSelected,
   );
   const onTabPressed = () => {
-    console.log('tab pressed');
     setExpenseSelected(!isExpenseSelected);
   };
 
-  const showDetail = item => {
-    console.warn(`Clicked ${item.heading}`);
+  const showDetail = useCallback(item => {
     navigation.navigate('TransactionDetail', {transaction: item});
-  };
+  }, []);
   return (
     <>
       <View style={styles.whiteCard}>
@@ -56,7 +55,7 @@ const Statements = () => {
                 fontWeight: 'bold',
                 fontSize: 22,
                 color: isExpenseSelected ? '#8e9aaf' : '#00192D',
-                fontFamily: 'Trebuchet MS',
+                fontFamily: Font.TREBUCHET_REGULAR,
               }}>
               Earning
             </Text>
