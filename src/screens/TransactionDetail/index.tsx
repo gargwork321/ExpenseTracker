@@ -9,17 +9,19 @@ import {
 } from 'react-native';
 import values from '../../constants/values';
 import colors from '../../constants/colors';
-import {Entry} from '../../realm';
+import {Entry, entryContext} from '../../realm';
 import Font from '../../constants/fonts';
 import {useNavigation} from '@react-navigation/native';
 
 const TransactionDetailScreen = ({route}) => {
-  const transaction: Entry = route.params.transaction;
+  const {useObject} = entryContext;
+  const id = route.params.id;
   const navigation = useNavigation();
   const backToHome = () => {
     navigation.goBack();
   };
-
+  const transaction = id ? useObject(Entry, id) : undefined;
+  console.log('from realm=>', transaction);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.whiteContainer}>

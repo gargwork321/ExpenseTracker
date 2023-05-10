@@ -26,7 +26,7 @@ const Summary: React.FC = () => {
     navigation.goBack();
   };
   const showDetail = item => {
-    navigation.navigate(Screens.TRANSACTION_DETAIL, {transaction: item});
+    navigation.navigate(Screens.TRANSACTION_DETAIL, {id: item._id});
   };
 
   return (

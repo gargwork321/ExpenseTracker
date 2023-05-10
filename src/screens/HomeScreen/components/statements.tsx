@@ -23,7 +23,7 @@ const Statements = () => {
   };
 
   const showDetail = useCallback(item => {
-    navigation.navigate(Screens.TRANSACTION_DETAIL, {transaction: item});
+    navigation.navigate(Screens.TRANSACTION_DETAIL, {id: item._id});
   }, []);
 
   return (
