@@ -1,15 +1,8 @@
 import React from 'react';
-import {
-  Pressable,
-  StyleSheet,
-  Text,
-  Touchable,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import colors from '../../../constants/colors';
 import {useNavigation} from '@react-navigation/native';
-import CustomButton from '../../../components/customButton';
+import Screens from '../../../constants/screens';
 
 type BalanceProps = {
   balance: number;
@@ -17,7 +10,7 @@ type BalanceProps = {
 const MainBalance = ({balance}: BalanceProps) => {
   const navigation = useNavigation();
   const showSummary = () => {
-    navigation.navigate('Summary');
+    navigation.navigate(Screens.SUMMARY);
   };
   return (
     <>

@@ -13,6 +13,7 @@ import colors from '../../constants/colors';
 import {Entry, entryContext} from '../../realm';
 import Transaction from '../HomeScreen/components/transaction';
 import {useNavigation} from '@react-navigation/native';
+import Screens from '../../constants/screens';
 
 const Summary: React.FC = () => {
   const navigation = useNavigation();
@@ -23,7 +24,7 @@ const Summary: React.FC = () => {
   };
   const showDetail = item => {
     console.warn(`Clicked ${item.heading}`);
-    navigation.navigate('TransactionDetail', {transaction: item});
+    navigation.navigate(Screens.TRANSACTION_DETAIL, {transaction: item});
   };
   return (
     <SafeAreaView style={styles.container}>

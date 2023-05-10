@@ -3,11 +3,12 @@ import React from 'react';
 import colors from '../../../constants/colors';
 import values from '../../../constants/values';
 import {useNavigation} from '@react-navigation/native';
+import Screens from '../../../constants/screens';
 
 const TopHeader: React.FC = () => {
   const navigation = useNavigation();
   const addNew = () => {
-    navigation.navigate('AddExpense');
+    navigation.navigate(Screens.ADD_EXPENSE);
   };
 
   return (

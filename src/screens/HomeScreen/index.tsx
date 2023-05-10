@@ -5,9 +5,11 @@ import TopHeader from './components/topHeader';
 import Spacer from './components/spacer';
 import MainBalance from './components/mainBalance';
 import Statements from './components/statements';
+
 type Props = {
   navigation: any;
 };
+
 const HomeScreen: React.FC<Props> = () => {
   return (
     <SafeAreaView style={styles.container}>

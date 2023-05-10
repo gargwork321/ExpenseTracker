@@ -4,6 +4,7 @@ import values from '../../../constants/values';
 import CustomButton from '../../../components/customButton';
 import {Entry, entryContext} from '../../../realm';
 import {useNavigation} from '@react-navigation/native';
+import Screens from '../../../constants/screens';
 
 type TransactionProps = {
   transaction: Entry;
@@ -27,7 +28,7 @@ const Transaction = ({
     });
   };
   const updateTransaction = () => {
-    navigation.navigate('AddExpense', {
+    navigation.navigate(Screens.ADD_EXPENSE, {
       transaction: transaction,
       isUpdate: true,
     });

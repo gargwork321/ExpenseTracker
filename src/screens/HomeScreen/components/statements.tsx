@@ -5,64 +5,44 @@ import Transaction from './transaction';
 import {useNavigation} from '@react-navigation/native';
 import {Entry, entryContext} from '../../../realm';
 import Font from '../../../constants/fonts';
+import Screens from '../../../constants/screens';
 
 const Statements = () => {
   const [isExpenseSelected, setExpenseSelected] = useState<boolean>(true);
   const navigation = useNavigation();
+  //Realm
   const {useQuery} = entryContext;
   const transactions = useQuery(Entry);
   const showingTransaction = transactions.filter(
     trans => trans.isExpense === isExpenseSelected,
   );
+
+  //Functions
   const onTabPressed = () => {
     setExpenseSelected(!isExpenseSelected);
   };
 
   const showDetail = useCallback(item => {
-    navigation.navigate('TransactionDetail', {transaction: item});
+    navigation.navigate(Screens.TRANSACTION_DETAIL, {transaction: item});
   }, []);
+
   return (
     <>
       <View style={styles.whiteCard}>
-        <View style={{flexDirection: 'row', padding: 20}}>
+        <View style={styles.tabBarContainer}>
           <TouchableOpacity
-            style={{
-              padding: 6,
-              borderBottomWidth: 2,
-              borderBottomColor: isExpenseSelected ? '#000' : colors.white,
-            }}
+            style={styles.tabBox(isExpenseSelected)}
             onPress={onTabPressed}>
-            <Text
-              style={{
-                fontWeight: 'bold',
-                fontSize: 22,
-                color: isExpenseSelected ? '#00192D' : '#8e9aaf',
-                fontFamily: 'Trebuchet MS',
-              }}>
-              Expences
-            </Text>
+            <Text style={styles.tabText(!isExpenseSelected)}>Expences</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={{
-              marginLeft: 20,
-              padding: 6,
-              borderBottomWidth: 2,
-              borderBottomColor: isExpenseSelected ? colors.white : '#000',
-            }}
+            style={styles.tabBox(!isExpenseSelected)}
             onPress={onTabPressed}>
-            <Text
-              style={{
-                fontWeight: 'bold',
-                fontSize: 22,
-                color: isExpenseSelected ? '#8e9aaf' : '#00192D',
-                fontFamily: Font.TREBUCHET_REGULAR,
-              }}>
-              Earning
-            </Text>
+            <Text style={styles.tabText(isExpenseSelected)}>Earning</Text>
           </TouchableOpacity>
         </View>
         <FlatList
-          style={{padding: 20}}
+          style={styles.listPadding}
           data={showingTransaction}
           showsVerticalScrollIndicator={false}
           keyExtractor={item => item.id}
@@ -84,9 +64,27 @@ const styles = StyleSheet.create({
     height: 1000,
     width: '100%',
     marginTop: 50,
-    backgroundColor: '#fff',
+    backgroundColor: colors.white,
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
+  },
+  tabBarContainer: {
+    flexDirection: 'row',
+    padding: 20,
+  },
+  tabBox: (flag: boolean) => ({
+    padding: 6,
+    borderBottomWidth: 2,
+    borderBottomColor: flag ? colors.balck : colors.white,
+  }),
+  tabText: (flag: boolean) => ({
+    fontWeight: 'bold',
+    fontSize: 22,
+    color: flag ? colors.gray : colors.balck,
+    fontFamily: Font.TREBUCHET_REGULAR,
+  }),
+  listPadding: {
+    padding: 20,
   },
 });
 
